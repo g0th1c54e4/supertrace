@@ -2,7 +2,7 @@
 #include <fstream>
 #include <filesystem>
 #include <windows.h>
-#include "trace_file.h"
+#include "trace.h"
 #include "blockdef.h"
 #include "util.h"
 
@@ -91,8 +91,8 @@ void set_init_info() {
         threadItem.entry = threadlist.list[i].BasicInfo.ThreadStartAddress;
         threadItem.cip = threadlist.list[i].ThreadCip;
         threadItem.suspendCount = threadlist.list[i].SuspendCount;
-        threadItem.waitReason = threadlist.list[i].WaitReason;
-        threadItem.priority = threadlist.list[i].Priority;
+        threadItem.waitReason = (uint32_t)threadlist.list[i].WaitReason;
+        threadItem.priority = (uint32_t)threadlist.list[i].Priority;
         threadItem.lastError = threadlist.list[i].LastError;
         threadItem.userTime.lowDateTime = threadlist.list[i].UserTime.dwLowDateTime;
         threadItem.userTime.highDateTime = threadlist.list[i].UserTime.dwHighDateTime;

@@ -30,8 +30,8 @@ struct ThreadInfo {
     uint64_t entry;
     uint64_t cip;
     uint32_t suspendCount;
-    THREADWAITREASON waitReason;
-    THREADPRIORITY priority;
+    uint32_t waitReason;
+    uint32_t priority;
     uint32_t lastError;
     FileTime userTime;
     FileTime kernelTime;

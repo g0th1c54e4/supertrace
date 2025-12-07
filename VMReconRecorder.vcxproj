@@ -24,7 +24,7 @@
     <ProjectGuid>{42eccf71-7ef8-4df6-b72e-4f8e9190c227}</ProjectGuid>
     <RootNamespace>Record</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>VMRecon-Recorder[x64dbg]</ProjectName>
+    <ProjectName>VMRecon-Recorder-x64dbg</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -121,8 +121,7 @@
       <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x32\plugins\$(TargetName).dp32" /y
-copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x32\plugins\" /y</Command>
+      <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x32\plugins\$(TargetName).dp32" /y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -151,8 +150,7 @@ copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x32\plugins\" /y</Command>
       <AdditionalDependencies>pluginsdk\DeviceNameResolver\DeviceNameResolver_x86.lib;pluginsdk\TitanEngine\TitanEngine_x86.lib;pluginsdk\XEDParse\XEDParse_x86.lib;pluginsdk\dbghelp\dbghelp_x86.lib;pluginsdk\jansson\jansson_x86.lib;pluginsdk\lz4\lz4_x86.lib;pluginsdk\x32bridge.lib;pluginsdk\x32dbg.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x32\plugins\$(TargetName).dp32" /y
-copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x32\plugins\" /y</Command>
+      <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x32\plugins\$(TargetName).dp32" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,7 +173,7 @@ copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x32\plugins\" /y</Command>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x64\plugins\$(TargetName).dp64" /y
-copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x64\plugins\" /y</Command>
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -202,13 +200,13 @@ copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x64\plugins\" /y</Command>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x64\plugins\$(TargetName).dp64" /y
-copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x64\plugins\" /y</Command>
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="plugin.cpp" />
     <ClCompile Include="pluginmain.cpp" />
-    <ClCompile Include="trace_file.cpp" />
+    <ClCompile Include="trace.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +214,7 @@ copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x64\plugins\" /y</Command>
     <ClInclude Include="plugin.h" />
     <ClInclude Include="pluginmain.h" />
     <ClInclude Include="serialize.h" />
-    <ClInclude Include="trace_file.h" />
+    <ClInclude Include="trace.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
