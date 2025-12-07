@@ -24,7 +24,7 @@
     <ProjectGuid>{42eccf71-7ef8-4df6-b72e-4f8e9190c227}</ProjectGuid>
     <RootNamespace>Record</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>VMReconRecorder</ProjectName>
+    <ProjectName>VMRecon-Recorder[x64dbg]</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -88,18 +88,18 @@
     <TargetExt>.dp64</TargetExt>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <VcpkgUseStatic>true</VcpkgUseStatic>
-    <VcpkgConfiguration>Release</VcpkgConfiguration>
+    <VcpkgUseStatic>false</VcpkgUseStatic>
+    <VcpkgConfiguration>Debug</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseStatic>false</VcpkgUseStatic>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <VcpkgUseStatic>true</VcpkgUseStatic>
-    <VcpkgConfiguration>Release</VcpkgConfiguration>
+    <VcpkgUseStatic>false</VcpkgUseStatic>
+    <VcpkgConfiguration>Debug</VcpkgConfiguration>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseStatic>false</VcpkgUseStatic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -122,7 +122,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x32\plugins\$(TargetName).dp32" /y
-</Command>
+copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x32\plugins\" /y</Command>
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
@@ -152,7 +152,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x32\plugins\$(TargetName).dp32" /y
-</Command>
+copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x32\plugins\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,7 +175,7 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x64\plugins\$(TargetName).dp64" /y
-</Command>
+copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x64\plugins\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -202,16 +202,22 @@
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\x64dbg1127\snapshot\release\x64\plugins\$(TargetName).dp64" /y
-</Command>
+copy "$(OutDir)*.dll" "D:\x64dbg1127\snapshot\release\x64\plugins\" /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="plugin.cpp" />
     <ClCompile Include="pluginmain.cpp" />
+    <ClCompile Include="trace_file.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="blockdef.h" />
     <ClInclude Include="plugin.h" />
     <ClInclude Include="pluginmain.h" />
+    <ClInclude Include="serialize.h" />
+    <ClInclude Include="trace_file.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

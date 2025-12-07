@@ -21,6 +21,12 @@
     <ClCompile Include="pluginmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="trace_file.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="plugin.h">
@@ -28,6 +34,18 @@
     </ClInclude>
     <ClInclude Include="pluginmain.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="blockdef.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="trace_file.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="serialize.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="util.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
