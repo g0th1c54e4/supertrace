@@ -36,6 +36,7 @@ The extra information is appended by introducing user-defined blocks (see [Block
 
 # Usage
 Once the plugin is successfully loaded, it collects extra information whenever trace recording starts (**StartTraceRecording** \\ **StartRunTrace**). When tracing stops, the collected information will be written into the trace file.
+The serialized information is archived in JSON format, so you can parse and use it anywhere with a JSON interpreter.
 
 # Third-party Library
 [cereal](https://github.com/USCiLab/cereal)：A C++11 library for serialization

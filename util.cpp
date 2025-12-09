@@ -26,17 +26,12 @@ std::string WstringToAnsi(const std::wstring& wideStr) {
 }
 #define DECODE(str) WstringToAnsi(Utf8ToWstring(str))
 
-std::pair<long long, std::string> getCurrentTime() {
+long long getCurrentTime() {
     auto now = std::chrono::system_clock::now();
     auto timestamp = std::chrono::duration_cast<std::chrono::seconds>(
         now.time_since_epoch()
     ).count();
-    std::time_t t = std::chrono::system_clock::to_time_t(now);
-    std::tm tm{};
-    localtime_s(&tm, &t); // Windows
-    char buffer[64];
-    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", &tm);
-    return { timestamp, buffer };
+    return timestamp;
 }
 
 std::vector<uint8_t> readFileToVector(const std::string& filepath) {

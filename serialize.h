@@ -34,6 +34,9 @@ template <typename T>
 std::vector<uint8_t> serializeJson(const T& obj) {
     std::stringstream ss(std::ios::binary | std::ios::in | std::ios::out);
     {
+        // Since cereal uses pretty output by default,
+        // you need to modify the related header files of cereal yourself to achieve a compact layout
+        // see https://github.com/USCiLab/cereal/issues/308#issuecomment-577239566
         cereal::JSONOutputArchive archive(ss);
         archive(obj);
     }
