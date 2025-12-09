@@ -226,8 +226,8 @@ void traceStartCB(CBTYPE cbType, PLUG_CB_STARTTRACE* callbackInfo) {
 }
 void traceStopCB(CBTYPE cbType, PLUG_CB_STOPTRACE* callbackInfo) {
     dprintf("Result saved: %s\n", g_traceFilePath.c_str());
-    auto serialMetaBlock = serialize(trace_info);
-    insert_userblock_x64dbg_trace(g_traceFilePath, METABLOCK_TYPE, serialMetaBlock.size(), serialMetaBlock.data());
+    auto serialMetaBlock = serializeJson(trace_info);
+    insert_userblock(g_traceFilePath, METABLOCK_TYPE, serialMetaBlock.size(), serialMetaBlock.data());
 }
 
 void traceExecuteCB(CBTYPE cbType, PLUG_CB_TRACEEXECUTE* callbackInfo) {

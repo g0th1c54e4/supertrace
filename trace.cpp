@@ -1,6 +1,6 @@
 #include "trace.h"
 
-void insert_userblock_x64dbg_trace(std::string filename, uint8_t block_type, uint32_t block_size, void* block_data) {
+void insert_userblock(std::string filename, uint8_t block_type, uint32_t block_size, void* block_data) {
     std::fstream f;
 
     if (!(block_type >= 0x80 && block_type <= 0xFF)) {
