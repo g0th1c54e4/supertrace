@@ -1,6 +1,35 @@
-.vs
-.git
-VMReconRecorder
-Debug
-Release
-x64
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+
+# Build output
+Debug/
+Release/
+x64/
+x86/
+bin/
+obj/
+
+# User-specific
+*.vcxproj.user
+
+# Intermediate
+*.ilk
+*.ipch
+*.obj
+*.pch
+*.log
+*.tlog
+*.tmp
+*.lastbuildstate
+*.cache
+*.pdb
+*.dll
+*.exe
+*.lib
+*.exp
+*.manifest
+
+# Build
+supertrace

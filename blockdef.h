@@ -1,8 +1,6 @@
 #ifndef BLOCKDEF_H
 #define BLOCKDEF_H
 
-// recorder host: x64dbg
-
 #include <cereal/types/string.hpp>
 #include <cereal/types/vector.hpp>
 #include <fstream>

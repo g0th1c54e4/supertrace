@@ -24,7 +24,7 @@
     <ProjectGuid>{42eccf71-7ef8-4df6-b72e-4f8e9190c227}</ProjectGuid>
     <RootNamespace>Record</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>VMRecon-Recorder-x64dbg</ProjectName>
+    <ProjectName>supertrace</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
