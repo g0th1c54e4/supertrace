@@ -157,15 +157,20 @@ void setInitInfo() {
 std::unordered_set<duint> cpuidNextAddrSet;
 void traceStartCB(CBTYPE cbType, PLUG_CB_STARTTRACE* callbackInfo) {
     cpuidNextAddrSet.clear();
-    g_traceFilePath = callbackInfo->traceFilePath;
+    g_traceFilePath = DECODE(callbackInfo->traceFilePath);
     traceInfo = {}; // clear traceInfo
     traceInfo.supertrace.version = COMBINE_U16_TO_U32(SUPERTRACE_BLOCK_VERSION_MAJOR, SUPERTRACE_BLOCK_VERSION_MINOR);
     traceInfo.supertrace.createTimeStamp = getCurrentTime();
     std::string exepath;
     exepath.reserve(MAX_PATH);
-    if (Script::Module::GetMainModulePath(exepath.data())) {
+    if (Script::Module::GetMainModulePath((exepath.data()))) {
         dprintf("Main module path: %s\n", exepath.c_str());
-        traceInfo.exeBuf = readFileToVector(exepath);
+        try {
+            traceInfo.exeBuf = readFileToVector(DECODE(exepath.c_str()));
+        }
+        catch (const std::exception&) {
+            dprintf("read binary data failed.\n");
+        }
     }
     else {
         dprintf("Get main module path failed.\n");
@@ -175,9 +180,11 @@ void traceStartCB(CBTYPE cbType, PLUG_CB_STARTTRACE* callbackInfo) {
     dprintf("Initial information has been saved.\n");
 }
 void traceStopCB(CBTYPE cbType, PLUG_CB_STOPTRACE* callbackInfo) {
-    dprintf("Result saved: %s\n", g_traceFilePath.c_str());
-    auto serialMetaBlock = serializeJson(traceInfo);
+    auto serialMetaBlock = serializeBinary(traceInfo);
+    dprintf("Archive format: Binary\n");
+
     insert_userblock(g_traceFilePath, METABLOCK_TYPE, serialMetaBlock.size(), serialMetaBlock.data());
+    dprintf("Result saved: %s\n", g_traceFilePath.c_str());
 }
 
 void traceExecuteCB(CBTYPE cbType, PLUG_CB_TRACEEXECUTE* callbackInfo) {

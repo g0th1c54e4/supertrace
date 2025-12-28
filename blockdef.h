@@ -6,6 +6,7 @@ constexpr uint16_t SUPERTRACE_BLOCK_VERSION_MINOR = 0;
 
 #include <cereal/types/string.hpp>
 #include <cereal/types/vector.hpp>
+
 #include <fstream>
 
 enum class ThreadWaitReason {
@@ -65,6 +66,17 @@ enum class SymbolType {
     Export //export
 };
 
+struct ThreadInfoTime {
+    uint64_t user;
+    uint64_t kernel;
+    uint64_t creation;
+
+    template <class Archive>
+    void serialize(Archive& ar) {
+        ar(CEREAL_NVP(user), CEREAL_NVP(kernel), CEREAL_NVP(creation));
+    }
+};
+
 struct ThreadInfo {
     uint32_t id;
     uint64_t handle;
@@ -75,11 +87,7 @@ struct ThreadInfo {
     ThreadWaitReason waitReason;
     ThreadPriority priority;
     uint32_t lastError;
-    struct {
-        uint64_t user;
-        uint64_t kernel;
-        uint64_t creation;
-    } time;
+    ThreadInfoTime time;
     uint64_t cycles;
     std::string name;
 
@@ -87,8 +95,7 @@ struct ThreadInfo {
     void serialize(Archive& ar) {
         ar(CEREAL_NVP(id), CEREAL_NVP(handle), CEREAL_NVP(teb), CEREAL_NVP(entry), CEREAL_NVP(cip),
             CEREAL_NVP(suspendCount), CEREAL_NVP(waitReason), CEREAL_NVP(priority),
-            CEREAL_NVP(lastError), CEREAL_NVP(time.user), CEREAL_NVP(time.kernel),
-            CEREAL_NVP(time.creation), CEREAL_NVP(cycles), CEREAL_NVP(name));
+            CEREAL_NVP(lastError), CEREAL_NVP(time), CEREAL_NVP(cycles), CEREAL_NVP(name));
     }
 };
 
@@ -105,16 +112,23 @@ struct SymbolInfo {
     }
 };
 
+struct MemoryMapInfoAllocation {
+    uint64_t base;
+    uint32_t protect;
+
+    template <class Archive>
+    void serialize(Archive& ar) {
+        ar(CEREAL_NVP(base), CEREAL_NVP(protect));
+    }
+};
+
 struct MemoryMapInfo {
     uint64_t addr;
     uint64_t size;
     uint32_t protect;
     uint32_t state;
     uint32_t type;
-    struct {
-        uint64_t base;
-        uint32_t protect;
-    } allocation;
+    MemoryMapInfoAllocation allocation;
 
     bool dataValid;
     std::vector<uint8_t> data;
@@ -122,8 +136,7 @@ struct MemoryMapInfo {
     template <class Archive>
     void serialize(Archive& ar) {
         ar(CEREAL_NVP(addr), CEREAL_NVP(size), CEREAL_NVP(protect), CEREAL_NVP(state), CEREAL_NVP(type),
-            CEREAL_NVP(allocation.base), CEREAL_NVP(allocation.protect), CEREAL_NVP(dataValid),
-            CEREAL_NVP(data));
+            CEREAL_NVP(allocation), CEREAL_NVP(dataValid), CEREAL_NVP(data));
     }
 };
 
@@ -155,19 +168,33 @@ struct ModuleInfo {
     }
 };
 
+struct SupertraceMeta {
+    uint32_t version; // (SUPERTRACE_BLOCK_VERSION_MAJOR, SUPERTRACE_BLOCK_VERSION_MINOR)
+    uint64_t createTimeStamp;
+
+    template <class Archive>
+    void serialize(Archive& ar) {
+        ar(CEREAL_NVP(version), CEREAL_NVP(createTimeStamp));
+    }
+};
+
+struct ProcessInfo {
+    uint32_t id;
+    uint64_t handle;
+    uint64_t peb;
+
+    template <class Archive>
+    void serialize(Archive& ar) {
+        ar(CEREAL_NVP(id), CEREAL_NVP(handle), CEREAL_NVP(peb));
+    }
+};
+
 #define METABLOCK_TYPE 0x80
 struct MetaBlock {
-    struct {
-        uint32_t version; // (SUPERTRACE_BLOCK_VERSION_MAJOR, SUPERTRACE_BLOCK_VERSION_MINOR)
-        uint64_t createTimeStamp;
-    } supertrace;
+    SupertraceMeta supertrace;
 
     std::vector<uint8_t> exeBuf;
-    struct {
-        uint32_t id;
-        uint64_t handle;
-        uint64_t peb;
-    } process;
+    ProcessInfo process;
     std::vector<ThreadInfo> threads;
     std::vector<SymbolInfo> symbols;
     std::vector<MemoryMapInfo> memoryMaps;
@@ -175,8 +202,7 @@ struct MetaBlock {
 
     template <class Archive>
     void serialize(Archive& ar) {
-        ar(CEREAL_NVP(supertrace.createTimeStamp), CEREAL_NVP(supertrace.version), CEREAL_NVP(exeBuf), 
-            CEREAL_NVP(process.id), CEREAL_NVP(process.handle), CEREAL_NVP(process.peb), CEREAL_NVP(threads),
+        ar(CEREAL_NVP(supertrace), CEREAL_NVP(exeBuf), CEREAL_NVP(process), CEREAL_NVP(threads),
             CEREAL_NVP(symbols), CEREAL_NVP(memoryMaps), CEREAL_NVP(modules));
     }
 };
