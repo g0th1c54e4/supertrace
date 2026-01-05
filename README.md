@@ -14,5 +14,8 @@ The extra information is appended by introducing user-defined blocks (see [Block
 Once the plugin is successfully loaded, it collects extra information whenever trace recording starts (**StartTraceRecording** \\ **StartRunTrace**). When tracing stops, the collected information will be written into the trace file.
 The serialized information is archived in Binary format.
 
+I also provide Python bindings to assist with parsing tasks on Python（Based on [pybind11](https://github.com/pybind/pybind11)）: **[supertrace-pybind](https://github.com/g0th1c54e4/supertrace-pybind)**
+
 # Third-party Library
-[cereal](https://github.com/USCiLab/cereal)：A C++11 library for serialization
+[cereal](https://github.com/USCiLab/cereal)：A C++11 library for serialization  
+[pybind11](https://github.com/pybind/pybind11): Seamless operability between C++11 and Python

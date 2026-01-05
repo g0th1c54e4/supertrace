@@ -13,5 +13,8 @@
 当插件被成功加载后，每当你开始进行跟踪记录(**StartTraceRecording** \\ **StartRunTrace**)，插件会在开始记录额外信息。跟踪记录结束后，这些信息将会一并写入至文件中。
 序列化后的信息使用二进制格式进行归档。
 
+我也提供 Python 绑定以帮助在 Python 上进行解析任务（基于 [pybind11](https://github.com/pybind/pybind11)）: [supertrace-pybind](https://github.com/g0th1c54e4/supertrace-pybind)
+
 # 第三方库
-[cereal](https://github.com/USCiLab/cereal)：A C++11 library for serialization
+[cereal](https://github.com/USCiLab/cereal)：A C++11 library for serialization  
+[pybind11](https://github.com/pybind/pybind11): Seamless operability between C++11 and Python
